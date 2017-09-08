@@ -22,9 +22,6 @@ then
     exit
 fi
 
-# Set default if necessary
-#USERNAME=${1:-"yasulab"}
-
 # Check required commands
 COMMANDS=( "envchain" "qiita" )
 cmd_check() {
