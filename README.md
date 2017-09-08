@@ -1,5 +1,5 @@
-# Qiita:Team Bot
+# Qiita:Team Reporter
 
-Post work-in-progress report to Qiita:Team periodically.
+This creates a report based on your daily reports in Qiita:Team.
 
 Copyright &copy; 2017 [YassLab](https://yasslab.jp/)
