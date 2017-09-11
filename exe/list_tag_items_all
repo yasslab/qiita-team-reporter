@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+if [ $# -ne 1 ]; then
+  echo "Usage: list_tag_items_all TAG"
+  exit 1
+fi
+
+tag=$1
+per_page=100
+page=1
+
+while :
+do
+  items=$(qiita list_tag_items $tag per_page=$per_page page=$page -t $QIITA_TEAM | jq -r '.[] | .user.id + "," + .title')
+  if [ -z "$items" ]; then
+    break
+  fi
+  echo "$items"
+  page=$((page + 1))
+done
