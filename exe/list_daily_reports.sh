@@ -1,17 +1,8 @@
 #!/bin/sh
 
 list_daily_reports() {
-    if [ $# -eq 0 ]
-    then
-	echo "* Fetching all daily reports from YassLab's Qiita:Team"
-	# 日報全体のタイトルを出力 (100 articles/page)
-	envchain qiita-team-reporter qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab | jq -r '.[] | .title'
-
-    else
-	echo "* Fetching $1's daily reports from YassLab's Qiita:Team"
-	# ユーザー指定する
-	envchain qiita-team-reporter qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab | jq --raw-output --arg USERNAME "$1" '.[] | select(.user.id == $USERNAME) | .title'
-    fi 
+    # Show given user's daily repots this month
+    ./list_tag_items_all "日報/$(date +%Y/%m)" | grep $1 | sort | cut -d, -f2-
 }
 
 # Check number of given arguments
