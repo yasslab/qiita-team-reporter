@@ -19,7 +19,7 @@ if [ $# -ne 1 ]
 then
     echo "Usage: ./list_daily_reports.sh USERNAME"
     echo "  Ex.: ./list_daily_reports.sh yasulab"
-    exit
+    exit 1
 fi
 
 # Check required commands
@@ -31,7 +31,7 @@ cmd_check() {
 	echo "'$1' not found"
 	echo "Please install this command via Homebrew or RubyGems"
 	echo ""
-	exit
+	exit 1
     fi
 }
 for cmd in ${COMMANDS[@]}
