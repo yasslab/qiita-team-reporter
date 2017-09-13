@@ -15,10 +15,10 @@ qiita_team_reporter() {
 }
 
 # Check number of given arguments
-if [ $# -gt 1 ]
+if [ $# -ne 1 ]
 then
-    echo "Usage: ./qiita_team_reporter.sh [USERNAME]"
-    echo "  Ex.: ./qiita_team_reporter.sh yasulab"
+    echo "Usage: ./list_daily_reports.sh USERNAME"
+    echo "  Ex.: ./list_daily_reports.sh yasulab"
     exit
 fi
 
