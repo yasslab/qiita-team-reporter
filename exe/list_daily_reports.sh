@@ -1,6 +1,6 @@
 #!/bin/sh
 
-qiita_team_reporter() {
+list_daily_reports() {
     if [ $# -eq 0 ]
     then
 	echo "* Fetching all daily reports from YassLab's Qiita:Team"
@@ -40,4 +40,4 @@ do
 done
 
 # Exec with given arguments if ready
-qiita_team_reporter $@
+list_daily_reports $@
