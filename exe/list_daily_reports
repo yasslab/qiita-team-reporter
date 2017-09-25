@@ -1,17 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 
-list_daily_reports() {
-    # Show given user's daily repots this month
-    list_tag_items_all "日報/$(date +%Y/%m)" | grep $1 | sort | cut -d, -f2-
-}
+require 'shellwords'
 
-# Check number of given arguments
-if [ $# -ne 1 ]
-then
-    echo "Usage: list_daily_reports.sh USERNAME"
-    echo "  Ex.: list_daily_reports.sh yasulab"
-    exit 1
-fi
+def list_daily_reports(username)
+  m = Time.now.strftime("%Y/%m")
+  tag = "日報/#{m}"
+  # Show given user's daily repots this month
+  puts `list_tag_items_all #{tag.shellescape} | grep #{username.shellescape} | sort | cut -d, -f2-`
+end
 
-# Exec with given arguments if ready
-list_daily_reports $@
+unless ARGV.size == 1
+  puts "Usage: list_daily_reports.sh USERNAME"
+  puts "  Ex.: list_daily_reports.sh yasulab"
+  exit 1
+end
+
+list_daily_reports(*ARGV)
