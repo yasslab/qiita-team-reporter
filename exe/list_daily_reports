@@ -8,8 +8,8 @@ list_daily_reports() {
 # Check number of given arguments
 if [ $# -ne 1 ]
 then
-    echo "Usage: ./list_daily_reports.sh USERNAME"
-    echo "  Ex.: ./list_daily_reports.sh yasulab"
+    echo "Usage: list_daily_reports.sh USERNAME"
+    echo "  Ex.: list_daily_reports.sh yasulab"
     exit 1
 fi
 
