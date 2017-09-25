@@ -23,4 +23,21 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
+# Check required commands
+COMMANDS=( "qiita" "jq" )
+cmd_check() {
+    type $1 > /dev/null 2>&1
+    if [ $? != 0 ]
+    then
+	echo "'$1' not found"
+	echo "Please install this command via Homebrew or RubyGems"
+	echo ""
+	exit 1
+    fi
+}
+for cmd in ${COMMANDS[@]}
+do
+    cmd_check $cmd
+done
+
 list_tag_items_all $1 100 1

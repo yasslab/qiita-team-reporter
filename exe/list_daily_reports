@@ -13,22 +13,5 @@ then
     exit 1
 fi
 
-# Check required commands
-COMMANDS=( "envchain" "qiita" "jq" )
-cmd_check() {
-    type $1 > /dev/null 2>&1
-    if [ $? != 0 ]
-    then
-	echo "'$1' not found"
-	echo "Please install this command via Homebrew or RubyGems"
-	echo ""
-	exit 1
-    fi
-}
-for cmd in ${COMMANDS[@]}
-do
-    cmd_check $cmd
-done
-
 # Exec with given arguments if ready
 list_daily_reports $@
