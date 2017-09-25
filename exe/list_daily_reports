@@ -2,7 +2,7 @@
 
 list_daily_reports() {
     # Show given user's daily repots this month
-    ./list_tag_items_all "日報/$(date +%Y/%m)" | grep $1 | sort | cut -d, -f2-
+    list_tag_items_all "日報/$(date +%Y/%m)" | grep $1 | sort | cut -d, -f2-
 }
 
 # Check number of given arguments
