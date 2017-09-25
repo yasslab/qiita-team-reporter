@@ -2,21 +2,25 @@
 
 set -e
 
+function list_tag_items_all() {
+  local tag=$1
+  local per_page=$2
+  local page=$3
+
+  while :
+  do
+    items=$(qiita list_tag_items $tag per_page=$per_page page=$page -t $QIITA_TEAM | jq -r '.[] | .user.id + "," + .title')
+    if [ -z "$items" ]; then
+      break
+    fi
+    echo "$items"
+    page=$((page + 1))
+  done
+}
+
 if [ $# -ne 1 ]; then
   echo "Usage: list_tag_items_all TAG"
   exit 1
 fi
 
-tag=$1
-per_page=100
-page=1
-
-while :
-do
-  items=$(qiita list_tag_items $tag per_page=$per_page page=$page -t $QIITA_TEAM | jq -r '.[] | .user.id + "," + .title')
-  if [ -z "$items" ]; then
-    break
-  fi
-  echo "$items"
-  page=$((page + 1))
-done
+list_tag_items_all $1 100 1
