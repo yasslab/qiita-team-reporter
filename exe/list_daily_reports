@@ -14,7 +14,7 @@ then
 fi
 
 # Check required commands
-COMMANDS=( "envchain" "qiita" "jq" )
+COMMANDS=( "qiita" "jq" )
 cmd_check() {
     type $1 > /dev/null 2>&1
     if [ $? != 0 ]
