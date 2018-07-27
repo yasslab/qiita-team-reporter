@@ -2,6 +2,22 @@
 
 This creates a report based on daily reports in your Qiita:Team.
 
+## TL;DR
+
+```shell
+cd ./exe
+./list_daily_reports yasulab
+
+# ...
+# 2018-07-24, Railsガイド, 8h, Railsガイド5.1更新準備を進めた
+# 2018-07-25, Railsガイド, 8h, Railsガイドの翻訳作業を進めた
+# 2018-07-26, Railsガイド, 8h, Railsガイドの新機能の開発を進めた
+```
+
+This requires the following environment variables.
+
+- `QIITA_TEAM`: Qiita:Team subdomain like `yasslab`
+- `QIITA_ACCESS_TOKEN`: See [#アクセストークンの発行](#アクセストークンの発行) at the bottom.
 
 ## できること
 
@@ -18,21 +34,23 @@ This creates a report based on daily reports in your Qiita:Team.
 `qiita`コマンドで特定タグの記事を取得することができます。
 
 ```
-% envchain qiita-team-reporter bundle exec qiita list_tag_items 日報/2017/09 -t yasslab
+% qiita list_tag_items 日報/2017/09 -t yasslab
 ```
 
 ページネーションのパラメータを指定すると、最大で100件ずつ取得することができます。
 
 ```
-% envchain qiita-team-reporter bundle exec qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab 
+% qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab 
 ```
 
 `jq`コマンドを使えば、特定の投稿者のidで絞り込むことができます。
 
 ```
-% envchain qiita-team-reporter bundle exec qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab | jq '.[] | .title'
+# 特定タグの記事を100件取得する
+% qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab | jq '.[] | .title'
 
-% envchain qiita-team-reporter bundle exec qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab | jq -r '.[] | select(.user.id == "yasulab") | .title'
+# 特定タグの記事で、yasulabが投稿した記事を100件取得する
+% qiita list_tag_items 日報/2017/09 per_page=100 page=1 -t yasslab | jq -r '.[] | select(.user.id == "yasulab") | .title'
 ```
 
 - :memo: NOTE: 1ページにその人の投稿が1つもない状態はほぼ起きないはずなので、上記コマンドの`page=`の数字を増やしながら実行したり、結果が空になるまで取得するという処理にしても良さそうです。
@@ -73,20 +91,20 @@ res.body.first.fetch('title')
 # => "ライブラリを作るときpublicで書き始めた方がいい理由"
 ```
 
-### アクセストークン管理
+### アクセストークンの管理
 
 qiita gemは環境変数の`QIITA_ACCESS_TOKEN`にアクセストークンが設定されている場合CLIツールではそれを使う
 
 > Accepts access token via -a, --access-token or QIITA_ACCESS_TOKEN environment variable.
 https://github.com/increments/qiita-rb#access-token
 
-発行したアクセストークンはenvchainで環境変数に入れておく
+発行したアクセストークンはenvchainなどで環境変数に入れておく
 
 ```
 % envchain --set qiita-team-reporter QIITA_ACCESS_TOKEN
 ```
 
-### アクセストークン発行
+### アクセストークンの発行
 
 Qiitaのアカウント管理のアプリケーションの個人用アクセストークンを発行するから発行できます
 https://qiita.com/settings/applications
