@@ -68,28 +68,27 @@ puts res.body.map {|i| i["title"] }
 # ...
 ```
 
-## 参考: Qiita gemの使い方
+## 参考: `qiita` コマンドの使い方
 
 詳細は下記ドキュメントを参考に。
 http://www.rubydoc.info/gems/qiita
 
-### qiita gemを使う
+### Qiita:Team API v2
 
-次のような感じでenvchainで環境変数を設定してirbで試してみる
+- リリースノート: http://blog.qiita.com/post/98796001374/qiita-api-v2
+- ドキュメント: http://qiita.com/api/v2/docs
 
-```
-% envchain qiita-team-reporter irb
-```
+ここから個人用アクセストークンを発行して使うのが一番手軽   
+https://qiita.com/settings/applications
 
-チームの記事を取る場合は`team`オプションを設定する
+### アクセストークンの発行
 
-```rb
-require 'qiita'
-client = Qiita::Client.new(team: 'yasslab', access_token: ENV['QIITA_ACCESS_TOKEN'])
-res = client.list_items
-res.body.first.fetch('title')
-# => "ライブラリを作るときpublicで書き始めた方がいい理由"
-```
+Qiitaのアカウント管理のアプリケーションの個人用アクセストークンを発行するから発行できます   
+https://qiita.com/settings/applications
+
+とりあえずQiita:Teamにだけアクセス出来ればよいので以下にチェックを入れて発行。
+
+- :white_check_mark: read_qiita_team
 
 ### アクセストークンの管理
 
@@ -104,25 +103,23 @@ https://github.com/increments/qiita-rb#access-token
 % envchain --set qiita-team-reporter QIITA_ACCESS_TOKEN
 ```
 
-### アクセストークンの発行
+### qiitaコマンドをirbで試してみる
 
-Qiitaのアカウント管理のアプリケーションの個人用アクセストークンを発行するから発行できます
-https://qiita.com/settings/applications
+次のようにenvchainなどに保存した環境変数を経由してirbで試してみる
 
-とりあえずQiita:Teamにだけアクセス出来ればよいので以下にチェックを入れて発行。
+```
+% envchain qiita-team-reporter irb
+```
 
-:white_check_mark: read_qiita_team
+チームの記事を取る場合は`team`オプションを設定する
 
-### Qiita:Team API v2
-
-リリースノート
-http://blog.qiita.com/post/98796001374/qiita-api-v2
-
-ドキュメント
-http://qiita.com/api/v2/docs
-
-ここから個人用アクセストークンを発行して使うのが一番手軽
-https://qiita.com/settings/applications
+```rb
+require 'qiita'
+client = Qiita::Client.new(team: 'yasslab', access_token: ENV['QIITA_ACCESS_TOKEN'])
+res = client.list_items
+res.body.first.fetch('title')
+# => "ライブラリを作るときpublicで書き始めた方がいい理由"
+```
 
 ## LICENSE
 
