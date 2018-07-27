@@ -6,12 +6,12 @@ def list_daily_reports(username)
   m = Time.now.strftime("%Y/%m")
   tag = "日報/#{m}"
   # Show given user's daily repots this month
-  puts `list_tag_items_all #{tag.shellescape} | grep #{username.shellescape} | sort | cut -d, -f2-`
+  puts `./list_tag_items_all #{tag.shellescape} | grep #{username.shellescape} | sort | cut -d, -f2-`
 end
 
 unless ARGV.size == 1
-  puts "Usage: list_daily_reports.sh USERNAME"
-  puts "  Ex.: list_daily_reports.sh yasulab"
+  puts "Usage: list_daily_reports USERNAME"
+  puts "  Ex.: list_daily_reports yasulab"
   exit 1
 end
 

@@ -8,7 +8,7 @@ end
 
 def list_tag_items_all(tag)
   per_page = 100
-  page = 1
+  page     = 1
 
   loop do
     items_json = `qiita list_tag_items #{tag.shellescape} per_page=#{per_page} page=#{page} -t #{qiita_team}`
@@ -18,7 +18,7 @@ def list_tag_items_all(tag)
 
     items.each do |item|
       user_id = item['user']['id']
-      title = item['title']
+      title   = item['title']
       puts "#{user_id},#{title}"
     end
 
@@ -32,3 +32,4 @@ unless ARGV.size == 1
 end
 
 list_tag_items_all(ARGV[0])
+
